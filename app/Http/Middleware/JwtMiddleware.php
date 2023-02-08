@@ -1,14 +1,16 @@
 <?php
 
 namespace App\Http\Middleware;
-use App\JWTAuth;
+
 use Closure;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Exception;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
-use http\Exception;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
+
 
 class JwtMiddleware
 {

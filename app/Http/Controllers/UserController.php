@@ -14,7 +14,7 @@ class UserController extends Controller
     //
         public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('us_email', 'us_password');
         try {
             if (! $token = JWTAuth::attempt($credentials)) 
             {
@@ -31,9 +31,10 @@ class UserController extends Controller
     {
         $validator=Validator::make($request->all(),
         [
-            'name' =>       'required|string|max:255',
-            'email' =>      'required|string|email|max:255|unique:users',
-            'password' =>   'required|string|min:6|confirmed',
+            'us_email' =>      'required|string|email|max:255|unique:users',  
+            'us_phone' =>       'required|string|max:255',
+            'us_associ_number' =>       'required|string|max:255',
+            'us_password' =>   'required|string|min:6|confirmed',
         ]);
         if ($validator->fails())
         {
@@ -41,9 +42,10 @@ class UserController extends Controller
         }
         $user = User::create
         ([
-            'name'=>$request->get('name'),
-             'email'=>$request->get('email'),
-              'password'=>Hash::make($request->get('password')),
+            'us_email'=>$request->get('us_email'),
+            'us_phone'=>$request->get('us_phone'),
+            'us_associ_number'=>$request->get('us_associ_number'),
+            'us_password'=>Hash::make($request->get('us_password')),
         ]);
         $token =JWTAuth::fromUser($user);
         return response()->json(compact('user','token'),201);

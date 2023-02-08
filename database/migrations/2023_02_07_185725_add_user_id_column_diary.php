@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        
+        Schema::table('diaries', function (Blueprint $table) {
+            $table->unsignedBigInteger('dia_user');
+            $table->foreign('dia_user')->references('id')->on('users')->onDelete('restrict');
+            
+            $table->unsignedBigInteger('dia_associatio');
+            $table->foreign('dia_associatio')->references('id')->on('users')->onDelete('restrict');
+        });
     }
 
     /**
